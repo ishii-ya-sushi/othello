@@ -52,7 +52,6 @@ window.onload = function () {
     drawing(); // PART.5
     ableCheckBlack(); // PART.6-1-1
     putStone();       // PART.7
-
 }
 
 
@@ -228,10 +227,10 @@ function putStone() {
                 // カウントを『+1』する
 
                 const passCount = checkPass(count);
-                console.log(passCount)
-                console.log(count + "に" + passCount + "を加える");
+                // console.log(passCount)
+                // console.log(count + "に" + passCount + "を加える");
                 count = count + passCount;
-                console.log("カウントは" + count + "になった");
+                // console.log("カウントは" + count + "になった");
 
                 // 勝敗を判定する
                 checkWin()
@@ -245,10 +244,7 @@ function putStone() {
                 drawing();
                 ableCheckBlack();
                 const passCount = checkPass(count);
-                console.log(passCount)
-                console.log(count + "に" + passCount + "を加える");
                 count = count + passCount;
-                console.log("カウントは" + count + "になった");
 
                 checkWin()
             }
@@ -257,7 +253,6 @@ function putStone() {
             // console.log("passCount" + passCount)
             // console.log("クリックの回数　" + count);
             // console.log("ゲームの経過　" + arrayRecord);
-
         })
     }
 }
@@ -420,8 +415,6 @@ function youlose() {
         let counter = 0
         const timerId = setInterval(
             function () {
-                console.log('100回後に死ぬ処理')
-
                 arraySquare[i].style.opacity = 1.0 - (0.01 * counter);
                 counter++;
                 if (counter > 99) {
@@ -429,8 +422,41 @@ function youlose() {
                 }
             }
             , 100)
-
     }
+    setTimeout(youlose2,10000);
+}
+
+//---PART.12---演出----------
+// 『youlose2』関数↓　　　.outerを["せ", "ん", "て", "ん", "す", "が"]ぐるぐる廻る;
+
+function youlose2() {
+
+    const array = ["あ", "な", "た", "は", "ま", "け", "た"];
+    let counter = 0
+
+    const timerId = setInterval(
+        function () {
+            // for (let i = 0; i < 5 * 36; i++) {
+                const k = counter % 36;
+                const m = counter % 7;
+                const r = counter % 3;                
+
+                const arrayBackColor = ["red", "pink", "yellow"];
+                const arrayColor = ["yellow", "red", "pink"];
+
+                arraySquare[arrayOuterIndex[k]].style.opacity = 0.0 + (0.006 * counter);
+                arraySquare[arrayOuterIndex[k]].textContent = array[m];
+                arraySquare[arrayOuterIndex[k]].style.backgroundColor = arrayBackColor[r];
+                arraySquare[arrayOuterIndex[k]].style.color = arrayColor[r];
+
+                console.log("カウンター" + counter);
+                counter++;
+
+                if (counter > 180) {
+                    clearInterval(timerId)
+                }
+            // }
+        }, 200)
 }
 
 
