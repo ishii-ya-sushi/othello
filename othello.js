@@ -408,7 +408,7 @@ function checkWin() {
 
 
 // ---PART.11---演出----------
-
+// youlose();
 function youlose() {
 
     for (let i = 0; i < 100; i++) {
@@ -456,7 +456,7 @@ function youlose2() {
                     clearInterval(timerId)
                 }
             // }
-        }, 200)
+        }, 150)
 }
 
 
