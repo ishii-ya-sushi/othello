@@ -223,9 +223,9 @@ function putStone() {
 
                 // 後手（白軍）が置くことが可能なマスを調べる
                 ableCheckWhite();
+
                 // もし後手（白軍）の置くところがなければパスする
                 // カウントを『+1』する
-
                 const passCount = checkPass(count);
                 // console.log(passCount)
                 // console.log(count + "に" + passCount + "を加える");
@@ -391,6 +391,7 @@ function checkWin() {
         if (arrayBlack.length > arrayWhite.length) {
             // console.log("黒の勝ち");
             document.querySelector("#noticeBlack2").textContent = "黒の勝ち";
+            youwin();
         } else if (arrayBlack.length < arrayWhite.length) {
             // console.log("白の勝ち");
             document.querySelector("#noticeBlack3").textContent = "白の勝ち";
@@ -400,6 +401,7 @@ function checkWin() {
             // console.log("引き分け");
             document.querySelector("#noticeBlack2").textContent = "引き分け";
             document.querySelector("#noticeBlack3").textContent = "引き分け";
+            draw();
         } else {
         }
     } else {
@@ -408,57 +410,157 @@ function checkWin() {
 
 
 // ---PART.11---演出----------
+
+// ---PART.11.1---youwin()
+// youwin();
+function youwin() {
+    squaresOpacity();
+
+    setTimeout(function () {
+        document.querySelector("#main").innertxte = "勝";
+    }, 9000);
+
+    setTimeout(youwin2, 10000);
+
+    function youwin2() {
+        headLine1(["あ", "な", "た", "の", "か", "ち", ""]);
+        console.log("headLine1が実行されるはず");
+    }
+
+}
+
+// ---PART.11.2---youlose()
 // youlose();
 function youlose() {
+    squaresOpacity();
 
+    setTimeout(youlose2, 10000);
+
+    function youlose2() {
+        headLine2(["あ", "な", "た", "の", "ま", "け", ""]);
+    }
+
+}
+
+// ---PART.11.3---draw()
+// draw();
+function draw() {
+    squaresOpacity();
+    document.querySelector("#main").textContent = "引き分け";
+}
+
+
+
+// ---PART.12---演出(arraySquare[i] を透明にしていく)----------
+
+// squaresOpacity();
+function squaresOpacity() {
+    // ここから↓が100回（i < 100）forループ    
     for (let i = 0; i < 100; i++) {
-        let counter = 0
+        let counter = 0;
+
+        //          ここから↓が99回（counter > 99）100m秒毎に繰り返される        
         const timerId = setInterval(
             function () {
                 arraySquare[i].style.opacity = 1.0 - (0.01 * counter);
                 counter++;
+                console.log("カウンター" + counter);
                 if (counter > 99) {
                     clearInterval(timerId)
+                    console.log("clearIntervalが実行されました")
                 }
             }
             , 100)
+        //           ここまで↑が99回（counter > 99）100m秒毎に繰り返される
     }
-    setTimeout(youlose2,10000);
+    // ここまで↑が100回（i < 100）forループ
 }
 
-//---PART.12---演出----------
-// 『youlose2』関数↓　　　.outerを["せ", "ん", "て", "ん", "す", "が"]ぐるぐる廻る;
 
-function youlose2() {
 
-    const array = ["あ", "な", "た", "は", "ま", "け", "た"];
+
+//---PART.13---演出----------
+// 『headLine1』関数↓　　　.outerを["せ", "ん", "て", "ん", "す", "が"]ぐるぐる廻る;
+
+function headLine2(sentence) {
+
+    const array = sentence;
     let counter = 0
 
     const timerId = setInterval(
         function () {
             // for (let i = 0; i < 5 * 36; i++) {
-                const k = counter % 36;
-                const m = counter % 7;
-                const r = counter % 3;                
+            const k = counter % 36;
+            const m = counter % 7;
+            const r = counter % 5;
 
-                const arrayBackColor = ["red", "pink", "yellow"];
-                const arrayColor = ["yellow", "red", "pink"];
+            const arrayBackColor = ["red", "pink", "aquamarine", "yellow", "powderblue"];
+            const arrayColor = ["yellow", "powderblue", "red", "pink", "aquamarine"];
 
-                arraySquare[arrayOuterIndex[k]].style.opacity = 0.0 + (0.006 * counter);
-                arraySquare[arrayOuterIndex[k]].textContent = array[m];
-                arraySquare[arrayOuterIndex[k]].style.backgroundColor = arrayBackColor[r];
-                arraySquare[arrayOuterIndex[k]].style.color = arrayColor[r];
+            arraySquare[arrayOuterIndex[k]].style.opacity = 0.0 + (0.006 * counter);
+            arraySquare[arrayOuterIndex[k]].textContent = array[m];
+            arraySquare[arrayOuterIndex[k]].style.backgroundColor = arrayBackColor[r];
+            arraySquare[arrayOuterIndex[k]].style.color = arrayColor[r];
 
-                console.log("カウンター" + counter);
-                counter++;
+            // console.log("カウンター" + counter);
+            counter++;
 
-                if (counter > 180) {
-                    clearInterval(timerId)
-                }
+            if (counter > 180) {
+                clearInterval(timerId)
+            }
             // }
         }, 150)
 }
 
+
+
+
+
+
+
+
+
+
+// headLine1();
+function headLine1() {
+
+
+    document.querySelector("#contents").style.height = "0px";
+    document.querySelector("#contents").style.width = "0px";
+
+
+
+    const targetElement = document.querySelector("#main");
+
+    // 文字の飛び出し具合の調整
+    targetElement.style.height = 0;
+    targetElement.style.width = "0px";
+    targetElement.style.textContent = "";
+    targetElement.style.lineHeight = "1.2";
+
+    let count = 0;
+
+    for (let i = 0; i < 116; i++) {
+        const m = count % 18;
+
+        setTimeout(function () {
+            const array = ["あ", "あ", "な", "な", "た", "た", "の", "の", "勝", "勝", "ち", "ち"];
+
+
+
+            targetElement.textContent = array[m];
+
+            // document.querySelector("#main").style.backgroundColor = "deepskyblue";
+            targetElement.style.color = "lightskyblue";
+            targetElement.style.textAlign = "center";
+            // document.querySelector(area).style.fontWeight = "bolder";
+
+            targetElement.style.fontSize = ((i * i) / 2) + "%";
+        }, (2500 + (i * 170)))
+
+        count = count + 1;
+    }
+}
 
 
 
