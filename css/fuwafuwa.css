@@ -1,0 +1,55 @@
+/* 基本レイアウト　ここから↓ */
+
+.notice {
+  animation-name: notice;
+  animation-duration: 2.2s;
+  animation-iteration-count: infinite;
+  /* background: #ffbb1e; */
+  height: 60px;
+  text-align: center;
+}
+
+@keyframes notice {
+  0% {
+    width: 35%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+
+.score {
+  animation-name: score;
+  animation-duration: 2.2s;
+  animation-iteration-count: infinite;
+  /* background: #ffbb1e; */
+  height: 60px;
+  text-align: center;
+}
+
+@keyframes score {
+
+  /*テキストが跳ねる変化を記述*/
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.pause {
+  animation-play-state: paused
+}
+
+
+.myCanvas {
+  transform: scale(18, 40);
+}
+
